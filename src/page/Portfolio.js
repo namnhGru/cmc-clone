@@ -9,7 +9,7 @@ export default function Portfolio() {
             {
                 name: "Ethereum",
                 tick: "ETH",
-                price: 4000.00,
+                price: 5000.00,
                 dayChange: 5.37,
                 txs: [
                     {
@@ -33,14 +33,21 @@ export default function Portfolio() {
         ]
     })
 
-    function calculatePortfolioChange() {
-        return portfolio.assets.reduce((change, asset) => {
+    function calculatePortfolioChangePercentage() {
+        let assetsAndPortfolio = portfolio.assets.reduce((change, asset) => {
             let assetWithOty = asset.txs.reduce((acc, txs) => {
                 acc.qty+= txs.qty
                 return acc 
             }, { name: asset.name, qty: 0 })
-            change = assetWithOty.qty * asset.price * asset.dayChange / 100
-
+            change.total += assetWithOty.qty * asset.price
+            let assetPortfolio = assetWithOty.qty * asset.price * asset.dayChange
+            change.assets.push(assetPortfolio)
+            return change
+        }, {assets: [], total: 0})
+        
+        let { assets, total } = assetsAndPortfolio
+        return assets.reduce((change, asset) => {
+            change+= asset/ total
             return change
         }, 0)
     }
@@ -50,7 +57,7 @@ export default function Portfolio() {
            {/* <BreadCrumb />
            <BriefInfo /> */}
            <button>Create portfolio</button>
-           <ActionBar change={calculatePortfolioChange()}/>
+           <ActionBar change={calculatePortfolioChangePercentage()}/>
            {/* <ChartBar /> */}
            <AssetList />
         </div>
