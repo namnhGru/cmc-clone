@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import AssetListRow from './AssetListRow'
 
-export default function AssetList() {
+export default function AssetList(props) {
     return (
         <div>
             <p>Your Assets</p>
@@ -17,30 +18,7 @@ export default function AssetList() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button>Add</button>
-                            <button>...</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button>Add</button>
-                            <button>...</button>
-                        </td>
-                    </tr>
+                    {props.assets.map((asset, i) => <AssetListRow asset={asset} key={i}/>)}
                 </tbody>
             </table>
         </div>

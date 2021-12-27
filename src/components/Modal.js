@@ -19,6 +19,7 @@ export default function Modal(props) {
     if (!props.isShow) {
         return null
     }
+
     return reactDom.createPortal(
         <div onClick={props.closeModal}>
             <div onClick={e => e.stopPropagation()}>

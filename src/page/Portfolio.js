@@ -80,7 +80,7 @@ export default function Portfolio() {
            <button>Create portfolio</button>
            <ActionBar portfolioChange={setPortfolioName} dayChange={calculatePortfolioChangePercentage()} currentValue= {calculatePortfolioCurrentValue()}/>
            {/* <ChartBar /> */}
-           <AssetList />
+           <AssetList assets={portfolio.assets}/>
            <button onClick={() => setShowModal(true)}>Show Modal</button>
            <Modal isShow={showModal} closeModal={() => setShowModal(false)}/>
         </div>
